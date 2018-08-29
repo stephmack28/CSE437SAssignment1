@@ -82,7 +82,7 @@ public class Game {
                 // Check for collision with cone
                 if (
                     ((s.getX() + s.getRadius()) > cone.getXPosition()) &&
-                    ((s.getX() - s.getRadius()) < (cone.getXPosition + (cone.getBaseWidth() * 2))) &&
+                    ((s.getX() - s.getRadius()) < (cone.getXPosition() + (cone.getBaseWidth() * 2))) &&
                     ((s.getY() + s.getRadius()) < (-17 + (cone.getBaseHeight() * 2)))
                 ) {
                     // Collision!
