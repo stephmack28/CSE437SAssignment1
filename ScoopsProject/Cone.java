@@ -2,7 +2,8 @@ package ScoopsProject;
 
 public class Cone {
 
-    private double baseSize;
+    private double baseHeight;
+    private double baseWidth;
     private double speed;
     private double xPosition;
 
@@ -10,16 +11,24 @@ public class Cone {
         Creates a cone object with default width and speed.
      */
     public Cone() {
-        this.baseSize = 50;
+        this.baseHeight = 10;
+        this.baseWidth = 50;
         this.speed = 5;
-        this.xPosition = 0;
+        this.xPosition = 300;
     }
 
     /*
-        Returns the base size of the Cone object. Base size affects amount of scoops that the cone can catch.
+        Returns the base height of the Cone object. Base size affects amount of scoops that the cone can catch.
      */
-    public double getBaseSize() {
-        return this.baseSize;
+    public double getBaseHeight() {
+        return this.baseHeight;
+    }
+
+    /*
+        Returns the width of the Cone object.
+     */
+    public double getBaseWidth() {
+        return this.baseWidth;
     }
 
     /*
@@ -30,10 +39,17 @@ public class Cone {
     }
 
     /*
-        Sets the base size of the Cone object. Base size affects amount of scoops that the cone can catch.
+        Sets the base height of the Cone object. Base size affects amount of scoops that the cone can catch.
      */
-    public void setBaseSize(double newSize) {
-        this.baseSize = newSize;
+    public void setBaseHeight(double newSize) {
+        this.baseHeight = newSize;
+    }
+
+    /*
+    Sets the base width of the Cone object.
+ */
+    public void setBaseWidth(double newSize) {
+        this.baseWidth = newSize;
     }
 
     /*
