@@ -1,5 +1,6 @@
 package ScoopsProject;
 
+import java.awt.*;
 import java.lang.Math;
 
 public class Scoop {
@@ -7,15 +8,17 @@ public class Scoop {
 	private int scoopRadius = 50;
 	private int x = 0;
 	private int y = 0;
+	private Color color;
 
 	// Object constructor
 	//		Takes in the height and width of the screen
 	// 		Randomly determines a horizontal coordinate for the scoop
 	// 		Scoops spawn just above the top of the screen
-	public Scoop(int screenHeight, int screenWidth) {
+	public Scoop(int screenHeight, int screenWidth, Color c) {
 		double rand = Math.random();
 		x = (int) ((screenWidth - (scoopRadius * 2)) * rand);
 		y = screenHeight + scoopRadius;
+		color = c;
 	}
 
 	// Method to move scoops
@@ -44,5 +47,15 @@ public class Scoop {
 	// Method to return y coordinate of scoop
 	public int getY() {
 		return y;
+	}
+
+	//Method to set color
+	public void setColor(Color c) {
+		color = c;
+	}
+
+	//Method to get color
+	public Color getColor() {
+		return color;
 	}
 }
