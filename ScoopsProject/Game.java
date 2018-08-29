@@ -10,12 +10,14 @@ public class Game {
     private ArrayList<Scoop> scoops;
     private Cone cone;
     private int strikes;
+    private int score;
     private Color[] palette = {Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.PINK};
 
     Game() {
         scoops = new ArrayList<>();
         cone = new Cone();
         strikes = 0;
+        score = 0;
     }
 
     public void start() {
@@ -73,18 +75,19 @@ public class Game {
         for (Scoop s : scoops) {
             s.moveScoop(4);
             if (s.isScoopOnGround()) {
-                scoops.remove(s); // May have unintended effects (see ArrayList ordering)
+                scoops.remove(s);
+                // May have unintended effects (see ArrayList ordering)
+                // If so, use a listIterator instead
             } else {
                 // Check for collision with cone
-                /*
                 if (
                     ((s.getX() + s.getRadius()) > cone.getXPosition()) &&
                     ((s.getX() - s.getRadius()) < (cone.getXPosition + (cone.getBaseWidth() * 2))) &&
                     ((s.getY() + s.getRadius()) < (-17 + (cone.getBaseHeight() * 2)))
                 ) {
                     // Collision!
+                    score = score + 1;
                 }
-                */
             }
         }
     }
