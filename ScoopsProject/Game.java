@@ -65,6 +65,7 @@ public class Game {
                 -17,
                 cone.getBaseWidth() * 2,
                 cone.getBaseHeight() * 2);
+
         for (Scoop s : scoops) {
             StdDraw.setPenColor(s.getColor());
             StdDraw.filledCircle(s.getX(), s.getY(), s.getRadius());
@@ -82,9 +83,9 @@ public class Game {
             } else {
                 // Check for collision with cone
                 if (
-                    ((s.getX() + s.getRadius()) > cone.getXPosition()) &&
-                    ((s.getX() - s.getRadius()) < (cone.getXPosition() + (cone.getBaseWidth() / 2))) &&
-                    ((s.getY() + s.getRadius()) < (-17 + (cone.getBaseHeight() / 2)))
+                    ((s.getX() + s.getRadius()) > cone.getXPosition() - (cone.getBaseWidth() * 2)) &&
+                    ((s.getX() - s.getRadius()) < (cone.getXPosition() + (cone.getBaseWidth() * 2))) &&
+                    ((s.getY() + s.getRadius()) < (-17 + (cone.getBaseHeight() * 2)))
                 ) {
                     // Collision!
                     if (!s.getScored()) {
