@@ -65,13 +65,28 @@ public class Game {
         for (Scoop s : scoops) {
             StdDraw.setPenColor(s.getColor());
             StdDraw.filledCircle(s.getX(), s.getY(), s.getRadius());
-            s.moveScoop(4);
         }
         StdDraw.show();
     }
 
     private void checkForCollision() {
-
+        for (Scoop s : scoops) {
+            s.moveScoop(4);
+            if (s.isScoopOnGround()) {
+                scoops.remove(s); // May have unintended effects (see ArrayList ordering)
+            } else {
+                // Check for collision with cone
+                /*
+                if (
+                    ((s.getX() + s.getRadius()) > cone.getXPosition()) &&
+                    ((s.getX() - s.getRadius()) < (cone.getXPosition + (cone.getBaseWidth() * 2))) &&
+                    ((s.getY() + s.getRadius()) < (-17 + (cone.getBaseHeight() * 2)))
+                ) {
+                    // Collision!
+                }
+                */
+            }
+        }
     }
 
     public static void main(String[] args) {

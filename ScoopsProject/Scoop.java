@@ -25,8 +25,12 @@ public class Scoop {
 	//		Takes in a number of pixels to jump (so scoop falling speed can be increased/decreased)
 	// 		Upon a successful jump, return true
 	// 		If the scoop touches the bottom of the screen, return false
-	public boolean moveScoop(int pixelsToJump) {
+	public void moveScoop(int pixelsToJump) {
 		y = y - pixelsToJump;
+	}
+
+	// Method to check if scoop has touched the ground
+	public boolean isScoopOnGround() {
 		if (y < scoopRadius) {
 			return false;
 		} else {
