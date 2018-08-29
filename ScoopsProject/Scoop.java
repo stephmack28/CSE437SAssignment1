@@ -9,6 +9,7 @@ public class Scoop {
 	private int x = 0;
 	private int y = 0;
 	private Color color;
+	private boolean scored;
 
 	// Object constructor
 	//		Takes in the height and width of the screen
@@ -61,5 +62,13 @@ public class Scoop {
 	//Method to get color
 	public Color getColor() {
 		return color;
+	}
+
+	public void setScored(boolean b) {
+		scored = b;
+	}
+
+	public boolean getScored() {
+		return scored;
 	}
 }
