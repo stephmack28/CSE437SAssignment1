@@ -1,17 +1,22 @@
 package ScoopsProject;
 
-import java.
+import java.lang.Math; // Random number generation
 
 public class Scoop {
-	
-	// Each scoop has the same radius
+
 	public int scoopRadius = 50;
-	
+	public int x = 0;
+	public int y = 0;
+
 	// Object constructor
-	// Takes in the width of the screen to randomly generate
-	// spawning location
-	public Scoop(int screenWidth) {
-		
+	public Scoop(int screenWidth, int screenHeight) {
+		double rand = Math.random();
+		x = (int) ((screenWidth - (scoopRadius * 2)) * rand);
+		y = screenHeight + scoopRadius;
 	}
 
+	public int moveScoop(int pixelsToJump) {
+		y = y - pixelsToJump;
+		return 0;
+	}
 }
