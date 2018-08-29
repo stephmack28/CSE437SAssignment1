@@ -31,6 +31,11 @@ public class Scoop {
 		}
 	}
 
+	// Method to return radius of scoop
+	public int getRadius() {
+		return scoopRadius;
+	}
+
 	// Method to return x coordinate of scoop
 	public int getX() {
 		return x;
