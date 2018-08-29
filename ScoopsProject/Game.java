@@ -77,6 +77,10 @@ public class Game {
         for (Scoop s : scoops) {
             s.moveScoop(4);
             if (s.isScoopOnGround()) {
+                if (!s.getScored()) {
+                    strikes++;
+                }
+                s.setScored(true);
                 //scoops.remove(s);
                 // May have unintended effects (see ArrayList ordering)
                 // If so, use a listIterator instead
@@ -85,11 +89,11 @@ public class Game {
                 if (
                     ((s.getX() + s.getRadius()) > cone.getXPosition() - (cone.getBaseWidth() * 2)) &&
                     ((s.getX() - s.getRadius()) < (cone.getXPosition() + (cone.getBaseWidth() * 2))) &&
-                    ((s.getY() + s.getRadius()) < (-17 + (cone.getBaseHeight() * 2)))
+                    ((s.getY() - s.getRadius()) < (-17 + (cone.getBaseHeight() * 2)))
                 ) {
                     // Collision!
                     if (!s.getScored()) {
-                        score = score + 1;
+                        score++;
                     }
                     s.setScored(true);
                 }

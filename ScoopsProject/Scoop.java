@@ -32,10 +32,10 @@ public class Scoop {
 
 	// Method to check if scoop has touched the ground
 	public boolean isScoopOnGround() {
-		if (y < scoopRadius) {
-			return false;
-		} else {
+		if (y < (scoopRadius - 35)) {
 			return true;
+		} else {
+			return false;
 		}
 	}
 
