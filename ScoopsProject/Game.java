@@ -58,7 +58,8 @@ public class Game {
         StdDraw.show(5);
         StdDraw.clear();
         StdDraw.setPenColor(Color.BLACK);
-        StdDraw.text(600, 800, Integer.toString(strikes));
+        StdDraw.text(580, 800, "Strikes: " + Integer.toString(strikes));
+        StdDraw.text(10, 800, "Score: " + Integer.toString(score));
         StdDraw.setPenColor(Color.ORANGE);
         StdDraw.filledRectangle(cone.getXPosition(),
                 -17,
@@ -75,18 +76,21 @@ public class Game {
         for (Scoop s : scoops) {
             s.moveScoop(4);
             if (s.isScoopOnGround()) {
-                scoops.remove(s);
+                //scoops.remove(s);
                 // May have unintended effects (see ArrayList ordering)
                 // If so, use a listIterator instead
             } else {
                 // Check for collision with cone
                 if (
                     ((s.getX() + s.getRadius()) > cone.getXPosition()) &&
-                    ((s.getX() - s.getRadius()) < (cone.getXPosition() + (cone.getBaseWidth() * 2))) &&
-                    ((s.getY() + s.getRadius()) < (-17 + (cone.getBaseHeight() * 2)))
+                    ((s.getX() - s.getRadius()) < (cone.getXPosition() + (cone.getBaseWidth() / 2))) &&
+                    ((s.getY() + s.getRadius()) < (-17 + (cone.getBaseHeight() / 2)))
                 ) {
                     // Collision!
-                    score = score + 1;
+                    if (!s.getScored()) {
+                        score = score + 1;
+                    }
+                    s.setScored(true);
                 }
             }
         }
