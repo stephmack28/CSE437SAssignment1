@@ -12,33 +12,29 @@ public class Game {
     private int strikes;
     private int score;
     private Color[] palette = {Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.PINK};
+    private long time;
+    private long endTime;
+    private long delta = 1000;
+    private boolean paused = false;
 
     Game() {
         scoops = new ArrayList<>();
         cone = new Cone();
         strikes = 0;
         score = 0;
+        time = System.currentTimeMillis();
+        endTime = time;
     }
 
     public void start() {
-        StdDraw.setCanvasSize(600, 800);
-        StdDraw.setXscale(0, 600);
-        StdDraw.setYscale(0, 800);
-
         redraw();
 
-        new Thread(() -> {
-            while(strikes < 3) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    System.out.println(ex.getMessage());
-                }
-                scoops.add(new Scoop(800, 600, palette[(int)(Math.random()*5)]));
-            }
-        }).start();
-
         while (strikes < 3) {
+            time = System.currentTimeMillis();
+            if (time >= endTime) {
+                scoops.add(new Scoop(800, 600, palette[(int)(Math.random()*5)]));
+                endTime += delta;
+            }
             if (StdDraw.isKeyPressed(37)) {
                 if (cone.getXPosition() - (cone.getBaseWidth() / 2) > 0) {
                     cone.moveLeft();
@@ -49,9 +45,28 @@ public class Game {
                     cone.moveRight();
                 }
             }
+            if (StdDraw.isKeyPressed(27)) {
+                StdDraw.setPenColor(Color.BLACK);
+                StdDraw.text(300, 400, "PAUSED");
+                StdDraw.pause(200);
+                paused = true;
+                long delayTime = endTime - time;
+                while (paused) {
+                    if (StdDraw.isKeyPressed(27)) {
+                        StdDraw.pause(200);
+                        paused = false;
+                        endTime = System.currentTimeMillis() + delayTime;
+                    }
+                }
+            }
             checkForCollision();
             redraw();
         }
+
+        StdDraw.clear();
+        StdDraw.setPenColor(Color.BLACK);
+        StdDraw.text(300, 400, "GAME OVER");
+        StdDraw.pause(3000);
     }
 
     private void redraw() {
@@ -102,7 +117,21 @@ public class Game {
     }
 
     public static void main(String[] args) {
-        Game game = new Game();
-        game.start();
+        boolean playGame = true;
+        StdDraw.setCanvasSize(600, 800);
+        StdDraw.setXscale(0, 600);
+        StdDraw.setYscale(0, 800);
+        while (playGame) {
+            StdDraw.show(5);
+            StdDraw.clear();
+            StdDraw.setPenColor(Color.BLACK);
+            StdDraw.text(300, 400, "Scoops");
+            StdDraw.text(300, 300, "Press SPACE to play");
+            StdDraw.show();
+            if (StdDraw.isKeyPressed(32)) {
+                Game game = new Game();
+                game.start();
+            }
+        }
     }
 }
