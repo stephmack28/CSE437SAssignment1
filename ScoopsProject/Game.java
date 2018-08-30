@@ -3,6 +3,8 @@ package ScoopsProject;
 import java.awt.*;
 import sedgewick.StdDraw;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Game {
@@ -48,6 +50,7 @@ public class Game {
             if (StdDraw.isKeyPressed(27)) {
                 StdDraw.setPenColor(Color.BLACK);
                 StdDraw.text(300, 400, "PAUSED");
+                StdDraw.text(300, 300, "Press 'S' to Save Game");
                 StdDraw.pause(200);
                 paused = true;
                 long delayTime = endTime - time;
@@ -56,6 +59,15 @@ public class Game {
                         StdDraw.pause(200);
                         paused = false;
                         endTime = System.currentTimeMillis() + delayTime;
+                    }
+                    if (StdDraw.isKeyPressed(83)) {
+                        try (PrintWriter out = new PrintWriter("savegame.txt")) {
+                            out.println(score + " " + strikes);
+                        }
+                        catch (FileNotFoundException ex) {
+
+                        }
+                        StdDraw.text(300, 250, "Game Saved!");
                     }
                 }
             }
