@@ -19,6 +19,9 @@ public class Game {
     private long delta = 1000;
     private boolean paused = false;
 
+    /**
+     * Creates a new game instance
+     */
     Game() {
         scoops = new ArrayList<>();
         cone = new Cone();
@@ -28,6 +31,9 @@ public class Game {
         endTime = time;
     }
 
+    /**
+     * This method is called when the player presses 'space' to start playing the game
+     */
     public void start() {
         redraw();
 
@@ -81,6 +87,9 @@ public class Game {
         StdDraw.pause(3000);
     }
 
+    /**
+     * Method to draw cone and scoops
+     */
     private void redraw() {
         StdDraw.show(5);
         StdDraw.clear();
@@ -100,6 +109,9 @@ public class Game {
         StdDraw.show();
     }
 
+    /**
+     * Method to check for collision between objects
+     */
     private void checkForCollision() {
         for (Scoop s : scoops) {
             s.moveScoop(4);
@@ -108,9 +120,6 @@ public class Game {
                     strikes++;
                 }
                 s.setScored(true);
-                //scoops.remove(s);
-                // May have unintended effects (see ArrayList ordering)
-                // If so, use a listIterator instead
             } else {
                 // Check for collision with cone
                 if (
@@ -128,6 +137,11 @@ public class Game {
         }
     }
 
+    /**
+     * Game inserts from this method
+     * Set game window size and draw initial main screen
+     * @param args
+     */
     public static void main(String[] args) {
         boolean playGame = true;
         StdDraw.setCanvasSize(600, 800);
