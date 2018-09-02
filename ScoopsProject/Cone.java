@@ -7,8 +7,8 @@ public class Cone {
     private double speed;
     private double xPosition;
 
-    /*
-        Creates a cone object with default width and speed.
+    /**
+     * Represents the cone object (to catch falling scoops with)
      */
     public Cone() {
         this.baseHeight = 10;
@@ -17,64 +17,72 @@ public class Cone {
         this.xPosition = 300;
     }
 
-    /*
-        Returns the base height of the Cone object. Base size affects amount of scoops that the cone can catch.
+    /**
+     * Returns the base height of the cone
+     * @return A double representing the base height of the cone
      */
     public double getBaseHeight() {
         return this.baseHeight;
     }
 
-    /*
-        Returns the width of the Cone object.
+    /**
+     * Returns the base width of the cone
+     * @return A double representing the base width of the cone
      */
     public double getBaseWidth() {
         return this.baseWidth;
     }
 
-    /*
-        Returns the speed of the Cone object. The speed represents how quickly the user can move the cone from side to side.
+    /**
+     * Returns the speed of the cone
+     * The speed represents how quickly the user can move the cone from side to side.
+     * @return A double representing the speed of the cone
      */
     public double getSpeed() {
         return this.speed;
     }
 
-    /*
-        Sets the base height of the Cone object. Base size affects amount of scoops that the cone can catch.
+    /**
+     * A method to set a new height of the cone
+     * @param newSize A double representing the new height of the cone
      */
     public void setBaseHeight(double newSize) {
         this.baseHeight = newSize;
     }
 
-    /*
-    Sets the base width of the Cone object.
- */
+    /**
+     * A method to set a new width of the cone
+     * @param newSize A double representing the new width of the cone
+     */
     public void setBaseWidth(double newSize) {
         this.baseWidth = newSize;
     }
 
-    /*
-        Sets the speed of the Cone object. The speed represents how quickly the user can move the cone from side to side.
+    /**
+     * A method to set a new speed for the cone
+     * @param newSpeed A double representing the new speed for the cone
      */
     public void setSpeed(double newSpeed) {
         this.speed = newSpeed;
     }
 
-    /*
-        Returns the current X position of the Cone object.
+    /**
+     * A method to get the x coordinate of the cone
+     * @return A double representing the x coordinate of the cone
      */
     public double getXPosition() {
         return xPosition;
     }
 
-    /*
-        Moves the cone left one position (speed interval).
+    /**
+     * A method to move the cone to the left
      */
     public void moveLeft() {
         this.xPosition = this.xPosition - this.speed;
     }
 
-    /*
-        Moves the cone right one position (speed interval).
+    /**
+     * A method to move the cone to the right
      */
     public void moveRight() {
         this.xPosition = this.xPosition + this.speed;
