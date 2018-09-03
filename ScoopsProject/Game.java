@@ -20,7 +20,7 @@ public class Game {
     private long endTime;
     private long delta = 1000;
     private long endTimeConeWidth;
-    private long deltaConeWidth = 4000;
+    private long deltaConeWidth = 5000;
     private boolean speedUp = false;
     private boolean paused = false;
     private boolean quit = false;
@@ -56,7 +56,7 @@ public class Game {
 
         while (strikes < 3) {
             time = System.currentTimeMillis();
-            if (time >= endTime) {
+            if (time > endTime) {
                 scoops.add(new Scoop(800, 600, palette[(int)(Math.random()*5)]));
                 endTime += delta;
                 if (speedUp) {
@@ -64,7 +64,7 @@ public class Game {
                     speedUp = false;
                 }
             }
-            if (time >= endTimeConeWidth) {
+            if (time > endTimeConeWidth) {
                 cone.widthLevelDown();
                 endTimeConeWidth += deltaConeWidth;
             }
@@ -86,11 +86,13 @@ public class Game {
                 StdDraw.pause(200);
                 paused = true;
                 long delayTime = endTime - time;
+                long delayTimeConeWidth = endTimeConeWidth - time;
                 while (paused) {
                     if (StdDraw.isKeyPressed(27)) {
                         StdDraw.pause(200);
                         paused = false;
                         endTime = System.currentTimeMillis() + delayTime;
+                        endTimeConeWidth = System.currentTimeMillis() + delayTimeConeWidth;
                     }
                     if (StdDraw.isKeyPressed(83)) {
                         try (PrintWriter out = new PrintWriter("savegame.txt")) {
@@ -176,6 +178,7 @@ public class Game {
                         score++;
                         if (s.isPowerUp()) {
                             cone.widthLevelUp();
+                            endTimeConeWidth = time + deltaConeWidth;
                         }
                     }
                     s.setScored(true);
