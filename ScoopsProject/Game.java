@@ -21,7 +21,7 @@ public class Game {
     private long endTime;
     private long delta = 1000;
     private long endTimeConeWidth;
-    private long deltaConeWidth = 5000;
+    private long deltaConeWidth = 3000;
     private boolean speedUp = false;
     private boolean paused = false;
     private boolean quit = false;
@@ -169,33 +169,29 @@ public class Game {
      * Method to check for collision between objects
      */
     private void checkForCollision() {
-        for (int i = 0; i < scoops.size(); i++) {
-            Scoop s = scoops.get(i);
-            if (!s.getScored()) {
-                s.moveScoopDown(4);
-                if (s.isScoopOnGround()) {
+        for (Scoop s : scoops) {
+            s.moveScoopDown(4);
+            if (s.isScoopOnGround()) {
+                if (!s.getScored()) {
+                    strikes++;
+                }
+                s.setScored(true);
+            } else {
+                // Check for collision with cone
+                if (
+                        ((s.getX() + s.getRadius()) > cone.getXPosition() - (cone.getBaseWidth() * 2)) &&
+                                ((s.getX() - s.getRadius()) < (cone.getXPosition() + (cone.getBaseWidth() * 2))) &&
+                                ((s.getY() - s.getRadius()) < (-17 + (cone.getBaseHeight() * 2)))
+                        ) {
+                    // Collision!
                     if (!s.getScored()) {
-                        strikes++;
+                        score++;
+                        if (s.isPowerUp()) {
+                            cone.widthLevelUp();
+                            endTimeConeWidth = time + deltaConeWidth;
+                        }
                     }
                     s.setScored(true);
-                    scoops.remove(s);
-                    i--;
-                } else {
-                    // Check for collision with cone and stack
-                    if (
-                            ((s.getX() + s.getRadius()) > cone.getXPosition() - (cone.getBaseWidth() * 2)) &&
-                                    ((s.getX() - s.getRadius()) < (cone.getXPosition() + (cone.getBaseWidth() * 2))) &&
-                                    (Math.abs((s.getY() - s.getRadius()) -
-                                            (-17 + (cone.getBaseHeight() * 2) + (s.getRadius() * cone.getStack().size()))) < (s.getRadius()/2))
-                    ) {
-                        // Collision!
-                        if (!s.getScored()) {
-                            score++;
-                        }
-                        s.setScored(true);
-                        cone.addScoop(s);
-                        s.setY((cone.getBaseHeight() * 2) + (s.getRadius() * cone.getStack().size()));
-                    }
                 }
             }
         }

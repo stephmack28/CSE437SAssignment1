@@ -17,7 +17,6 @@ public class Cone {
     public Cone() {
         this.baseHeight = 10;
         this.baseWidth = 25;
-        this.baseWidth = 30;
         this.speed = 5;
         this.xPosition = 300;
         this.stack = new ArrayList<Scoop>();
