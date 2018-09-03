@@ -6,7 +6,6 @@ import java.lang.Math;
 public class Scoop {
 
 	private int scoopRadius = 50;
-
 	private double x = 0;
 	private double y = 0;
 	private Color color;

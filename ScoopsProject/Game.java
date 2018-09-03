@@ -25,8 +25,6 @@ public class Game {
     private boolean speedUp = false;
     private boolean paused = false;
     private boolean quit = false;
-    private boolean won = false;
-    private double winBar = 500;
 
     /**
      * Creates a new game instance
@@ -57,7 +55,7 @@ public class Game {
     public void start() {
         redraw();
 
-        while (strikes < 3 && !won) {
+        while (strikes < 3) {
             time = System.currentTimeMillis();
             if (time > endTime) {
                 scoops.add(new Scoop(800, 600, palette[(int)(Math.random()*5)], probability));
@@ -124,7 +122,6 @@ public class Game {
                 }
             }
             checkForCollision();
-            checkForWin();
             redraw();
             if (score != 0 && score % 10 == 0) {
                 speedUp = true;
@@ -132,7 +129,7 @@ public class Game {
         }
 
 
-        if (!won)
+        if (!quit)
         {
             StdDraw.clear();
             StdDraw.setPenColor(Color.BLACK);
@@ -197,16 +194,6 @@ public class Game {
         }
     }
 
-    public void checkForWin(){
-        if (scoops.size() > 0 && (cone.getBaseHeight() * 2) + (scoops.get(0).getRadius() * cone.getStack().size()) >= winBar) {
-            won = true;
-            StdDraw.clear();
-            StdDraw.setPenColor(Color.BLACK);
-            StdDraw.text(300, 400, "You Won!");
-            StdDraw.text(300, 300, "Your score was: " + score);
-            StdDraw.pause(5000);
-        }
-    }
     /**
      * Game inserts from this method
      * Set game window size and draw initial main screen
