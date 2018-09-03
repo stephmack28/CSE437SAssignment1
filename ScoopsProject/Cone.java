@@ -6,6 +6,7 @@ public class Cone {
     private double baseWidth;
     private double speed;
     private double xPosition;
+    private int widthLevel = 0;
 
     /**
      * Represents the cone object (to catch falling scoops with)
@@ -30,7 +31,7 @@ public class Cone {
      * @return A double representing the base width of the cone
      */
     public double getBaseWidth() {
-        return this.baseWidth;
+        return this.baseWidth + (20 * widthLevel);
     }
 
     /**
@@ -56,6 +57,30 @@ public class Cone {
      */
     public void setBaseWidth(double newSize) {
         this.baseWidth = newSize;
+    }
+
+    /**
+     * A method to upgrade the cone width
+     */
+    public void widthLevelUp() {
+        this.widthLevel++;
+    }
+
+    /**
+     * A method to downgrade the cone width
+     */
+    public void widthLevelDown() {
+        if (this.widthLevel > 0) {
+            this.widthLevel--;
+        }
+    }
+
+    /**
+     * A method to return the cone width level
+     * @return An int representing the cone width level
+     */
+    public int getWidthLevel() {
+        return this.widthLevel;
     }
 
     /**

@@ -19,6 +19,8 @@ public class Game {
     private long time;
     private long endTime;
     private long delta = 1000;
+    private long endTimeConeWidth;
+    private long deltaConeWidth = 4000;
     private boolean speedUp = false;
     private boolean paused = false;
     private boolean quit = false;
@@ -33,6 +35,7 @@ public class Game {
         score = 0;
         time = System.currentTimeMillis();
         endTime = time;
+        endTimeConeWidth = time;
     }
 
     Game(int scoreIn, int strikesIn, ArrayList<Scoop> scoopsIn) {
@@ -42,6 +45,7 @@ public class Game {
         score = scoreIn;
         time = System.currentTimeMillis();
         endTime = time;
+        endTimeConeWidth = time;
     }
 
     /**
@@ -60,6 +64,10 @@ public class Game {
                     speedUp = false;
                 }
             }
+            if (time >= endTimeConeWidth) {
+                cone.widthLevelDown();
+                endTimeConeWidth += deltaConeWidth;
+            }
             if (StdDraw.isKeyPressed(37)) {
                 if (cone.getXPosition() - (cone.getBaseWidth() / 2) > 0) {
                     cone.moveLeft();
@@ -74,7 +82,7 @@ public class Game {
                 StdDraw.setPenColor(Color.BLACK);
                 StdDraw.text(300, 400, "PAUSED");
                 StdDraw.text(300, 300, "Press 'S' to Save Game");
-                StdDraw.text(300, 275, "Press 'Q' to Save Game");
+                StdDraw.text(300, 275, "Press 'Q' to Quit Game");
                 StdDraw.pause(200);
                 paused = true;
                 long delayTime = endTime - time;
@@ -166,6 +174,9 @@ public class Game {
                     // Collision!
                     if (!s.getScored()) {
                         score++;
+                        if (s.isPowerUp()) {
+                            cone.widthLevelUp();
+                        }
                     }
                     s.setScored(true);
                 }
