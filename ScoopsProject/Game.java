@@ -25,6 +25,8 @@ public class Game {
     private boolean speedUp = false;
     private boolean paused = false;
     private boolean quit = false;
+    private boolean won = false;
+    private double winBar = 500;
 
     /**
      * Creates a new game instance
@@ -55,7 +57,7 @@ public class Game {
     public void start() {
         redraw();
 
-        while (strikes < 3) {
+        while (strikes < 3 && !won) {
             time = System.currentTimeMillis();
             if (time > endTime) {
                 scoops.add(new Scoop(800, 600, palette[(int)(Math.random()*5)], probability));
@@ -122,13 +124,16 @@ public class Game {
                 }
             }
             checkForCollision();
+            checkForWin();
             redraw();
             if (score != 0 && score % 10 == 0) {
                 speedUp = true;
             }
         }
 
-        if (!quit) {
+
+        if (!won)
+        {
             StdDraw.clear();
             StdDraw.setPenColor(Color.BLACK);
             StdDraw.text(300, 400, "GAME OVER");
@@ -164,34 +169,48 @@ public class Game {
      * Method to check for collision between objects
      */
     private void checkForCollision() {
-        for (Scoop s : scoops) {
-            s.moveScoop(4);
-            if (s.isScoopOnGround()) {
-                if (!s.getScored()) {
-                    strikes++;
-                }
-                s.setScored(true);
-            } else {
-                // Check for collision with cone
-                if (
-                    ((s.getX() + s.getRadius()) > cone.getXPosition() - (cone.getBaseWidth() * 2)) &&
-                    ((s.getX() - s.getRadius()) < (cone.getXPosition() + (cone.getBaseWidth() * 2))) &&
-                    ((s.getY() - s.getRadius()) < (-17 + (cone.getBaseHeight() * 2)))
-                ) {
-                    // Collision!
+        for (int i = 0; i < scoops.size(); i++) {
+            Scoop s = scoops.get(i);
+            if (!s.getScored()) {
+                s.moveScoopDown(4);
+                if (s.isScoopOnGround()) {
                     if (!s.getScored()) {
-                        score++;
-                        if (s.isPowerUp()) {
-                            cone.widthLevelUp();
-                            endTimeConeWidth = time + deltaConeWidth;
-                        }
+                        strikes++;
                     }
                     s.setScored(true);
+                    scoops.remove(s);
+                    i--;
+                } else {
+                    // Check for collision with cone and stack
+                    if (
+                            ((s.getX() + s.getRadius()) > cone.getXPosition() - (cone.getBaseWidth() * 2)) &&
+                                    ((s.getX() - s.getRadius()) < (cone.getXPosition() + (cone.getBaseWidth() * 2))) &&
+                                    (Math.abs((s.getY() - s.getRadius()) -
+                                            (-17 + (cone.getBaseHeight() * 2) + (s.getRadius() * cone.getStack().size()))) < (s.getRadius()/2))
+                    ) {
+                        // Collision!
+                        if (!s.getScored()) {
+                            score++;
+                        }
+                        s.setScored(true);
+                        cone.addScoop(s);
+                        s.setY((cone.getBaseHeight() * 2) + (s.getRadius() * cone.getStack().size()));
+                    }
                 }
             }
         }
     }
 
+    public void checkForWin(){
+        if (scoops.size() > 0 && (cone.getBaseHeight() * 2) + (scoops.get(0).getRadius() * cone.getStack().size()) >= winBar) {
+            won = true;
+            StdDraw.clear();
+            StdDraw.setPenColor(Color.BLACK);
+            StdDraw.text(300, 400, "You Won!");
+            StdDraw.text(300, 300, "Your score was: " + score);
+            StdDraw.pause(5000);
+        }
+    }
     /**
      * Game inserts from this method
      * Set game window size and draw initial main screen

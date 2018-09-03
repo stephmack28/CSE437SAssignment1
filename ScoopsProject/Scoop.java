@@ -6,8 +6,9 @@ import java.lang.Math;
 public class Scoop {
 
 	private int scoopRadius = 50;
-	private int x = 0;
-	private int y = 0;
+
+    private double x = 0;
+    private double y = 0;
 	private Color color;
 	private boolean scored;
 	private boolean powerUp = false;
@@ -34,7 +35,7 @@ public class Scoop {
 	 * Called each time a scoop needs to be moved down the screen
 	 * @param pixelsToJump An int representing how many pixels a scoop should be moved
 	 */
-	public void moveScoop(int pixelsToJump) {
+	public void moveScoopDown(int pixelsToJump) {
 		y = y - pixelsToJump;
 	}
 
@@ -65,7 +66,7 @@ public class Scoop {
 	 * A method to return the x coordinate of scoop
 	 * @return An int representing the x coordinate of the scoop
 	 */
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
@@ -73,7 +74,7 @@ public class Scoop {
 	 * A method to return the y coordinate of the scoop
 	 * @return An int representing the y coordinate of the scoop
 	 */
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
@@ -125,6 +126,7 @@ public class Scoop {
 		return scored;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * A method to return the power up state of the scoop
 	 * @return A boolean representing the power up state of the scoop
@@ -132,4 +134,20 @@ public class Scoop {
 	public boolean isPowerUp() {
 		return powerUp;
 	}
+=======
+	/*
+	 * Used by cone class to move stack of ice cream with cone
+	 */
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    /*
+     * Sets the y for a stacked scoop
+     */
+    public void setY(double y) {
+        this.y = y;
+    }
+
+>>>>>>> Implemented working stacking of cone. Currently need to catch around 10 scoops to win
 }
