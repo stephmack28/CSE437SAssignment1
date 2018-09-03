@@ -16,6 +16,7 @@ public class Game {
     private int strikes;
     private int score;
     private static Color[] palette = {Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.PINK};
+    private int probability = 10;
     private long time;
     private long endTime;
     private long delta = 1000;
@@ -57,11 +58,14 @@ public class Game {
         while (strikes < 3) {
             time = System.currentTimeMillis();
             if (time > endTime) {
-                scoops.add(new Scoop(800, 600, palette[(int)(Math.random()*5)]));
+                scoops.add(new Scoop(800, 600, palette[(int)(Math.random()*5)], probability));
                 endTime += delta;
                 if (speedUp) {
                     delta /= 1.1;
                     speedUp = false;
+                    if (probability > 6) {
+                        probability -= 2;
+                    }
                 }
             }
             if (time > endTimeConeWidth) {
@@ -88,6 +92,7 @@ public class Game {
                 long delayTime = endTime - time;
                 long delayTimeConeWidth = endTimeConeWidth - time;
                 while (paused) {
+                    StdDraw.pause(200);
                     if (StdDraw.isKeyPressed(27)) {
                         StdDraw.pause(200);
                         paused = false;
@@ -216,7 +221,7 @@ public class Game {
                     int strikesIn = in.nextInt();
                     ArrayList<Scoop> scoopsIn = new ArrayList<>();
                     while (in.hasNextInt()) {
-                            Scoop scoop = new Scoop(800, 600, palette[(int) (Math.random() * 5)]);
+                            Scoop scoop = new Scoop(800, 600, palette[(int) (Math.random() * 5)], 10);
                             scoop.setX(in.nextInt());
                             scoop.setY(in.nextInt());
                             scoopsIn.add(scoop);
