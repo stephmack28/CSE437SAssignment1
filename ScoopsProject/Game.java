@@ -15,7 +15,7 @@ public class Game {
     private Cone cone;
     private int strikes;
     private int score;
-    private Color[] palette = {Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.PINK};
+    private static Color[] palette = {Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.PINK};
     private long time;
     private long endTime;
     private long delta = 1000;
@@ -34,8 +34,8 @@ public class Game {
         endTime = time;
     }
 
-    Game(int scoreIn, int strikesIn) {
-        scoops = new ArrayList<>();
+    Game(int scoreIn, int strikesIn, ArrayList<Scoop> scoopsIn) {
+        scoops = scoopsIn;
         cone = new Cone();
         strikes = strikesIn;
         score = scoreIn;
@@ -81,7 +81,13 @@ public class Game {
                     }
                     if (StdDraw.isKeyPressed(83)) {
                         try (PrintWriter out = new PrintWriter("savegame.txt")) {
-                            out.println(score + " " + strikes);
+                            out.println(score + " " + strikes + " ");
+                            for (Scoop s : scoops) {
+                                if (!s.getScored()) {
+                                    out.println(s.getX() + " " + s.getY());
+                                }
+                            }
+                            out.close();
                         }
                         catch (FileNotFoundException ex) {
 
@@ -186,7 +192,14 @@ public class Game {
                 try (Scanner in = new Scanner(new File("savegame.txt"))) {
                     int scoreIn = in.nextInt();
                     int strikesIn = in.nextInt();
-                    Game game = new Game(scoreIn, strikesIn);
+                    ArrayList<Scoop> scoopsIn = new ArrayList<>();
+                    while (!in.nextLine().isEmpty()) {
+                            Scoop scoop = new Scoop(800, 600, palette[(int) (Math.random() * 5)]);
+                            scoop.setX(in.nextInt());
+                            scoop.setY(in.nextInt());
+                            scoopsIn.add(scoop);
+                    }
+                    Game game = new Game(scoreIn, strikesIn, scoopsIn);
                     game.start();
                 }
                 catch (FileNotFoundException ex) {

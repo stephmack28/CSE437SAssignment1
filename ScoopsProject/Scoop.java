@@ -37,7 +37,7 @@ public class Scoop {
 	 * @return A boolean for if the scoop has touched the ground
 	 */
 	public boolean isScoopOnGround() {
-		if (scored == false) {
+		if (!scored) {
 			if (y < (scoopRadius - 35)) {
 				return true;
 			} else {
@@ -69,6 +69,22 @@ public class Scoop {
 	 */
 	public int getY() {
 		return y;
+	}
+
+	/**
+	 * A method to set the x coordinate of the scoop
+	 * @param xCoord An int representing the x coordinate to set
+	 */
+	public void setX(int xCoord) {
+		x = xCoord;
+	}
+
+	/**
+	 * A method to set the y coordinate of the scoop
+	 * @param yCoord An int representing the y coordinate to set
+	 */
+	public void setY(int yCoord) {
+		y = yCoord;
 	}
 
 	/**
