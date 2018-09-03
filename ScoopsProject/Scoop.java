@@ -10,6 +10,7 @@ public class Scoop {
 	private int y = 0;
 	private Color color;
 	private boolean scored;
+	private boolean powerUp = false;
 
 	/**
 	 * Represents a scoop object
@@ -22,6 +23,10 @@ public class Scoop {
 		x = (int) ((screenWidth - (scoopRadius * 2)) * rand);
 		y = screenHeight + scoopRadius;
 		color = c;
+		if (Math.random() * 100 < 10) {
+			powerUp = true;
+			System.out.println("Powerup");
+		}
 	}
 
 	/**
@@ -117,5 +122,13 @@ public class Scoop {
 	 */
 	public boolean getScored() {
 		return scored;
+	}
+
+	/**
+	 * A method to return the power up state of the scoop
+	 * @return A boolean representing the power up state of the scoop
+	 */
+	public boolean isPowerUp() {
+		return powerUp;
 	}
 }

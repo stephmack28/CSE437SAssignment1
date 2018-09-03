@@ -89,7 +89,7 @@ public class Game {
                             out.println(score + " " + strikes + " ");
                             for (Scoop s : scoops) {
                                 if (!s.getScored()) {
-                                    out.println(s.getX() + " " + s.getY());
+                                    out.print(s.getX() + " " + s.getY() + " ");
                                 }
                             }
                             out.close();
@@ -138,7 +138,7 @@ public class Game {
 
         for (Scoop s : scoops) {
             if (!s.getScored()) {
-                StdDraw.setPenColor(s.getColor());
+                StdDraw.setPenColor((s.isPowerUp()) ? palette[(int)(Math.random()*5)] : s.getColor());
                 StdDraw.filledCircle(s.getX(), s.getY(), s.getRadius());
             }
         }
@@ -201,7 +201,7 @@ public class Game {
                     int scoreIn = in.nextInt();
                     int strikesIn = in.nextInt();
                     ArrayList<Scoop> scoopsIn = new ArrayList<>();
-                    while (!in.nextLine().isEmpty()) {
+                    while (in.hasNextInt()) {
                             Scoop scoop = new Scoop(800, 600, palette[(int) (Math.random() * 5)]);
                             scoop.setX(in.nextInt());
                             scoop.setY(in.nextInt());
