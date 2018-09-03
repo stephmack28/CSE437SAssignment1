@@ -17,13 +17,14 @@ public class Scoop {
 	 * @param screenHeight An int representing the height of the game window
 	 * @param screenWidth An int representing the width of the game window
 	 * @param c A Color representing the color of the scoop
+	 * @param probability An int representing the probablity of being a powerup
 	 */
-	public Scoop(int screenHeight, int screenWidth, Color c) {
+	public Scoop(int screenHeight, int screenWidth, Color c, int probability) {
 		double rand = Math.random();
 		x = (int) ((screenWidth - (scoopRadius * 2)) * rand);
 		y = screenHeight + scoopRadius;
 		color = c;
-		if (Math.random() * 100 < 10) {
+		if (Math.random() * 100 < probability) {
 			powerUp = true;
 			System.out.println("Powerup");
 		}
