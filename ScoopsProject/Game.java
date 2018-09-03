@@ -19,6 +19,7 @@ public class Game {
     private long time;
     private long endTime;
     private long delta = 1000;
+    private boolean speedUp = false;
     private boolean paused = false;
     private boolean quit = false;
 
@@ -54,6 +55,10 @@ public class Game {
             if (time >= endTime) {
                 scoops.add(new Scoop(800, 600, palette[(int)(Math.random()*5)]));
                 endTime += delta;
+                if (speedUp) {
+                    delta /= 1.1;
+                    speedUp = false;
+                }
             }
             if (StdDraw.isKeyPressed(37)) {
                 if (cone.getXPosition() - (cone.getBaseWidth() / 2) > 0) {
@@ -103,6 +108,9 @@ public class Game {
             }
             checkForCollision();
             redraw();
+            if (score != 0 && score % 10 == 0) {
+                speedUp = true;
+            }
         }
 
         if (!quit) {

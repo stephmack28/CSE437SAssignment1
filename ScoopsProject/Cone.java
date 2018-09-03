@@ -12,7 +12,7 @@ public class Cone {
      */
     public Cone() {
         this.baseHeight = 10;
-        this.baseWidth = 50;
+        this.baseWidth = 25;
         this.speed = 5;
         this.xPosition = 300;
     }
