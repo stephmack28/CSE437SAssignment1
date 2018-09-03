@@ -1,5 +1,7 @@
 package ScoopsProject;
 
+import java.util.*;
+
 public class Cone {
 
     private double baseHeight;
@@ -7,6 +9,7 @@ public class Cone {
     private double speed;
     private double xPosition;
     private int widthLevel = 0;
+    private ArrayList<Scoop> stack;
 
     /**
      * Represents the cone object (to catch falling scoops with)
@@ -14,8 +17,10 @@ public class Cone {
     public Cone() {
         this.baseHeight = 10;
         this.baseWidth = 25;
+        this.baseWidth = 30;
         this.speed = 5;
         this.xPosition = 300;
+        this.stack = new ArrayList<Scoop>();
     }
 
     /**
@@ -104,6 +109,9 @@ public class Cone {
      */
     public void moveLeft() {
         this.xPosition = this.xPosition - this.speed;
+        for (Scoop s : this.getStack()) {
+            s.setX(this.xPosition);
+        }
     }
 
     /**
@@ -111,6 +119,23 @@ public class Cone {
      */
     public void moveRight() {
         this.xPosition = this.xPosition + this.speed;
+        for (Scoop s : this.getStack()) {
+            s.setX(this.xPosition);
+        }
+    }
+
+    /*
+     * Adds a scoop of ice cream to the arraylist holding the current stack
+     */
+    public void addScoop(Scoop s) {
+        this.stack.add(s);
+    }
+
+    /*
+     * returns the current stack of scoops
+     */
+    public ArrayList<Scoop> getStack() {
+        return this.stack;
     }
 
 }
