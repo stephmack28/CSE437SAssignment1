@@ -3,9 +3,11 @@ package ScoopsProject;
 import java.awt.*;
 import sedgewick.StdDraw;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Game {
 
@@ -18,6 +20,7 @@ public class Game {
     private long endTime;
     private long delta = 1000;
     private boolean paused = false;
+    private boolean quit = false;
 
     /**
      * Creates a new game instance
@@ -27,6 +30,15 @@ public class Game {
         cone = new Cone();
         strikes = 0;
         score = 0;
+        time = System.currentTimeMillis();
+        endTime = time;
+    }
+
+    Game(int scoreIn, int strikesIn) {
+        scoops = new ArrayList<>();
+        cone = new Cone();
+        strikes = strikesIn;
+        score = scoreIn;
         time = System.currentTimeMillis();
         endTime = time;
     }
@@ -57,6 +69,7 @@ public class Game {
                 StdDraw.setPenColor(Color.BLACK);
                 StdDraw.text(300, 400, "PAUSED");
                 StdDraw.text(300, 300, "Press 'S' to Save Game");
+                StdDraw.text(300, 275, "Press 'Q' to Save Game");
                 StdDraw.pause(200);
                 paused = true;
                 long delayTime = endTime - time;
@@ -75,16 +88,23 @@ public class Game {
                         }
                         StdDraw.text(300, 250, "Game Saved!");
                     }
+                    if (StdDraw.isKeyPressed(81)) {
+                        strikes = 3;
+                        quit = true;
+                        paused = false;
+                    }
                 }
             }
             checkForCollision();
             redraw();
         }
 
-        StdDraw.clear();
-        StdDraw.setPenColor(Color.BLACK);
-        StdDraw.text(300, 400, "GAME OVER");
-        StdDraw.pause(3000);
+        if (!quit) {
+            StdDraw.clear();
+            StdDraw.setPenColor(Color.BLACK);
+            StdDraw.text(300, 400, "GAME OVER");
+            StdDraw.pause(3000);
+        }
     }
 
     /**
@@ -103,8 +123,10 @@ public class Game {
                 cone.getBaseHeight() * 2);
 
         for (Scoop s : scoops) {
-            StdDraw.setPenColor(s.getColor());
-            StdDraw.filledCircle(s.getX(), s.getY(), s.getRadius());
+            if (!s.getScored()) {
+                StdDraw.setPenColor(s.getColor());
+                StdDraw.filledCircle(s.getX(), s.getY(), s.getRadius());
+            }
         }
         StdDraw.show();
     }
@@ -140,7 +162,7 @@ public class Game {
     /**
      * Game inserts from this method
      * Set game window size and draw initial main screen
-     * @param args
+     * @param args Input parameters (not needed in this case)
      */
     public static void main(String[] args) {
         boolean playGame = true;
@@ -153,10 +175,24 @@ public class Game {
             StdDraw.setPenColor(Color.BLACK);
             StdDraw.text(300, 400, "Scoops");
             StdDraw.text(300, 300, "Press SPACE to play");
+            StdDraw.text(300, 275, "Press ESC to pause in game");
+            StdDraw.text(300, 250, "Press 'L' to load a saved game");
             StdDraw.show();
             if (StdDraw.isKeyPressed(32)) {
                 Game game = new Game();
                 game.start();
+            }
+            if (StdDraw.isKeyPressed(76)) {
+                try (Scanner in = new Scanner(new File("savegame.txt"))) {
+                    int scoreIn = in.nextInt();
+                    int strikesIn = in.nextInt();
+                    Game game = new Game(scoreIn, strikesIn);
+                    game.start();
+                }
+                catch (FileNotFoundException ex) {
+                    StdDraw.text(300, 225, "Saved game not found!");
+                    StdDraw.pause(1000);
+                }
             }
         }
     }
