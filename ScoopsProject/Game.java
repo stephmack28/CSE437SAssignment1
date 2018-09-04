@@ -39,6 +39,12 @@ public class Game {
         endTimeConeWidth = time;
     }
 
+    /**
+     * Creates a new game instance from a save game
+     * @param scoreIn An int representing the saved score data
+     * @param strikesIn An int representing the saved strikes data
+     * @param scoopsIn An ArrayList representing the existing scoops
+     */
     Game(int scoreIn, int strikesIn, ArrayList<Scoop> scoopsIn) {
         scoops = scoopsIn;
         cone = new Cone();
