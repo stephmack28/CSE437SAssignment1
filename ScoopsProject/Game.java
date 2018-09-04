@@ -11,10 +11,10 @@ import java.util.Scanner;
 
 public class Game {
 
-    private ArrayList<Scoop> scoops;
-    private Cone cone;
-    private int strikes;
-    private int score;
+    public ArrayList<Scoop> scoops;
+    public Cone cone;
+    public int strikes;
+    public int score;
     private static Color[] palette = {Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.PINK};
     private int probability = 10;
     private long time;
@@ -171,7 +171,7 @@ public class Game {
     /**
      * Method to check for collision between objects
      */
-    private void checkForCollision() {
+    public void checkForCollision() {
         for (Scoop s : scoops) {
             s.moveScoopDown(4);
             if (s.isScoopOnGround()) {
