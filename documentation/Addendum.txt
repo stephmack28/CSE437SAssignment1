@@ -1,0 +1,27 @@
+Addendum for CSE437 Assignment 1
+Summary of group work by member
+
+Zhi Shen Yong:
+	- Stubbed out and implemented the framework for Scoop.java 
+		-(methods for position and radius determination)
+	- Wrote functions for scoop to cone and scoop to ground collision calculations
+	- Wrote out documentation for code (JavaDocs)
+	- Created and completed game design flowchart and class diagram
+	
+Steph McCormack:
+	- Stubbed out and implemented the framework for Cone.java
+	- Wrote out documentatation for code (JavaDocs)
+	- Improved cone scoring system
+	- Implemented and completed JUnit testing for initial and collision states
+	
+Shane Blair:
+	- Implemented main Game class and wired in Cone and Scoops
+	- Implemented input controls (play/pause, save/load game) and UI output
+	- Implemented strike and scoring systems
+	- Implemented game difficulty increase and powerup mechanics
+	- Led user testing and implemented improvements from user testing
+	
+Eve Liu:
+	- Edits to design flowchart
+	
+GitHub Repository: https://github.com/stephmack28/CSE437SAssignment1
