@@ -1,0 +1,49 @@
+Scoops User Testing
+September 4, 2018
+
+Users were given the game and asked to play without any instruction from the hosts. Their feedback was prompted for, then collected based on three categories: graphics, gameplay, and satisfaction.
+
+(+) positives
+(-) negatives
+
+Tester #1:
+
+Graphics:
+	+ Smooth, almost no screen tearing or slowdowns
+	+ Simple and aesthetically pleasing
+	- Yellow scoop is hard to see
+Gameplay:
+	- Pacing is abrupt, it goes from quite easy to quite difficult very fast
+	- Cone powerup seems to expire too quickly, specifically when the game gets tough
+Satisfaction:
+	+ Game is a "good play", not too long but also not too short for its genre
+	+ Easy enough to rack up points and progress
+	
+Tester #2:
+
+Graphics:
+	+ Cone moves back and forth without glitches
+	- Minor screen tears seemingly randomly
+Gameplay:
+	+ Pacing seems normal, gets hard at the right time
+	- Powerups seems ineffective because they do not last long enough
+	- Sometimes maneuverability seems purposefully slowdowns
+Satisfaction:
+	- No sense of accomplishment at the end, score cannot be seen
+	
+Tester #3:
+
+Graphics:
+	+ No errors or problems noticed
+	- Yellow scoop almost cannot be seen
+Gameplay:
+	+ Moving the cone is challenging enough, speed is fine
+	- Too few powerups when the game gets harder towards the end
+Satisfaction:
+	- No comparison to other scores, like a high score list
+	
+Improvements to be made based on feedback:
+	1. Switch yellow scoop color
+	2. Improve powerup length but limit the width that a powerup can raise the cone to
+	3. Add score display at the end of the game
+	4. Add high score list
