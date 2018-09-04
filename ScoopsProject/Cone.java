@@ -63,9 +63,16 @@ public class Cone {
 
     /**
      * A method to upgrade the cone width
+     * @return A boolean representing when the cone is at maximum width (to calculate bonus points)
      */
-    public void widthLevelUp() {
-        this.widthLevel++;
+    public boolean widthLevelUp() {
+        if (this.widthLevel < 3) {
+            this.widthLevel++;
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     /**

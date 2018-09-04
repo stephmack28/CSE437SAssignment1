@@ -27,7 +27,6 @@ public class Scoop {
 		color = c;
 		if (Math.random() * 100 < probability) {
 			powerUp = true;
-			System.out.println("Powerup");
 		}
 	}
 

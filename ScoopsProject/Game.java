@@ -15,13 +15,13 @@ public class Game {
     public Cone cone;
     public int strikes;
     public int score;
-    private static Color[] palette = {Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.PINK};
+    private static Color[] palette = {Color.RED, Color.BLUE, Color.MAGENTA, Color.GREEN, Color.PINK};
     private int probability = 10;
     private long time;
     private long endTime;
     private long delta = 1000;
     private long endTimeConeWidth;
-    private long deltaConeWidth = 3000;
+    private long deltaConeWidth = 4000;
     private boolean speedUp = false;
     private boolean paused = false;
     private boolean quit = false;
@@ -67,11 +67,11 @@ public class Game {
                 scoops.add(new Scoop(800, 600, palette[(int)(Math.random()*5)], probability));
                 endTime += delta;
                 if (speedUp) {
-                    delta /= 1.1;
-                    speedUp = false;
-                    if (probability > 6) {
-                        probability -= 2;
+                    if (delta > 85) {
+                        delta /= 1.1;
                     }
+                    speedUp = false;
+                    System.out.println(delta);
                 }
             }
             if (time > endTimeConeWidth) {
@@ -114,11 +114,12 @@ public class Game {
                                 }
                             }
                             out.close();
+                            StdDraw.text(300, 250, "Game Saved!");
                         }
                         catch (FileNotFoundException ex) {
-
+                            StdDraw.setPenColor(Color.RED);
+                            StdDraw.text(300, 250, "savegame.txt write error");
                         }
-                        StdDraw.text(300, 250, "Game Saved!");
                     }
                     if (StdDraw.isKeyPressed(81)) {
                         strikes = 3;
@@ -138,8 +139,35 @@ public class Game {
         if (!quit)
         {
             StdDraw.clear();
+            int highscore = 0;
+
+            //Get high score
+            try (Scanner in = new Scanner(new File("highscore.txt"))) {
+                highscore = in.nextInt();
+            }
+            catch (FileNotFoundException ex) {
+                StdDraw.setPenColor(Color.RED);
+                StdDraw.text(300, 225, "highscore.txt not found!");
+            }
+            //Set high score
+            if (score > highscore) {
+                try (PrintWriter out = new PrintWriter("highscore.txt")) {
+                    out.println(score);
+                    out.close();
+                    highscore = score;
+                    StdDraw.setPenColor(Color.BLUE);
+                    StdDraw.text(300, 225, "New High Score!");
+                }
+                catch (FileNotFoundException ex) {
+                    StdDraw.setPenColor(Color.RED);
+                    StdDraw.text(300, 225, "highscore.txt write error");
+                }
+            }
+
             StdDraw.setPenColor(Color.BLACK);
             StdDraw.text(300, 400, "GAME OVER");
+            StdDraw.text(300, 300, "SCORE: " + score);
+            StdDraw.text(300, 275, "HIGH SCORE: " + highscore);
             StdDraw.pause(3000);
         }
     }
@@ -190,7 +218,9 @@ public class Game {
                     if (!s.getScored()) {
                         score++;
                         if (s.isPowerUp()) {
-                            cone.widthLevelUp();
+                            if (cone.widthLevelUp()) {
+                                score++;
+                            }
                             endTimeConeWidth = time + deltaConeWidth;
                         }
                     }
@@ -238,6 +268,7 @@ public class Game {
                     game.start();
                 }
                 catch (FileNotFoundException ex) {
+                    StdDraw.setPenColor(Color.RED);
                     StdDraw.text(300, 225, "Saved game not found!");
                     StdDraw.pause(1000);
                 }
